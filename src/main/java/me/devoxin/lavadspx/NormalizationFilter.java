@@ -18,25 +18,34 @@ package me.devoxin.lavadspx;
 
 import com.sedmelluq.discord.lavaplayer.filter.FloatPcmAudioFilter;
 
-public class AdaptiveNormalizationFilter implements FloatPcmAudioFilter {
+public class NormalizationFilter implements FloatPcmAudioFilter {
     private final FloatPcmAudioFilter downstream;
     private float maxAmplitude;
+    private boolean isAdaptive;
 
     private float peakAmplitude = 0.0f;
 
+
+    public NormalizationFilter(FloatPcmAudioFilter downstream, float maxAmplitude) {
+        this(downstream, maxAmplitude, true);
+    }
+
     /**
-     * Instantiate a FixedNormalizationFilter with the provided configuration.
-     * This filter will normalize audio volume progressively as it processes more audio samples.
-     * This means that the louder a song is, the more the volume is adjusted relative to the rest of the audio,
-     * which has the potential to reduce the audible volume changing effect that you might find with the
-     * FixedNormalizationFilter.
+     * A filter that will attenuate audio peaking, so that the difference between the loudest and softest parts of a track
+     * is narrowed.
      *
      * @param downstream The next filter in the chain.
      * @param maxAmplitude A value ranging from 0.0 to 1.0.
+     * @param isAdaptive Whether peak amplitude values should persist for the lifetime of this filter.
+     *                   Setting this to true means that peak amplitude is more accurate over the duration
+     *                   of a track, however it could take a while before the peak amplitude reaches its highest value.
+     *                   Setting this to false means that peak amplitude is only calculated on a per-frame basis,
+     *                   but may cause more noticeable volume changes.
      */
-    public AdaptiveNormalizationFilter(FloatPcmAudioFilter downstream, float maxAmplitude) {
+    public NormalizationFilter(FloatPcmAudioFilter downstream, float maxAmplitude, boolean isAdaptive) {
         this.downstream = downstream;
         this.maxAmplitude = maxAmplitude;
+        this.isAdaptive = isAdaptive;
     }
 
     /**
@@ -53,6 +62,10 @@ public class AdaptiveNormalizationFilter implements FloatPcmAudioFilter {
 
     @Override
     public void process(float[][] input, int offset, int length) throws InterruptedException {
+        if (!isAdaptive) {
+            peakAmplitude = 0.0f;
+        }
+
         for (int channel = 0; channel < input.length; channel++) {
             for (int i = offset; i < offset + length; i++) {
                 peakAmplitude = Math.max(peakAmplitude, Math.abs(input[channel][i]));
