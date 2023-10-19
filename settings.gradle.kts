@@ -1,2 +1,2 @@
-rootProject.name = "LavaFX"
+rootProject.name = "LavaDSPX"
 
