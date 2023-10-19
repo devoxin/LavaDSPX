@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-package me.devoxin;
+package me.devoxin.lavafx;
 
 import com.sedmelluq.discord.lavaplayer.filter.FloatPcmAudioFilter;
 

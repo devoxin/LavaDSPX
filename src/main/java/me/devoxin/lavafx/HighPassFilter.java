@@ -14,16 +14,16 @@
    limitations under the License.
 */
 
-package me.devoxin;
+package me.devoxin.lavafx;
 
 import com.sedmelluq.discord.lavaplayer.filter.FloatPcmAudioFilter;
 
-public class LowPassFilter extends GenericPassFilter {
-    protected LowPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency) {
+public class HighPassFilter extends GenericPassFilter {
+    protected HighPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency) {
         super(downstream, sampleRate, channelCount, cutoffFrequency);
     }
 
-    protected LowPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency, float boostFactor) {
+    protected HighPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency, float boostFactor) {
         super(downstream, sampleRate, channelCount, cutoffFrequency, boostFactor);
     }
 
@@ -34,9 +34,9 @@ public class LowPassFilter extends GenericPassFilter {
         double sin = Math.sin(omega);
         double alpha = sin / (2.0 * 0.707);
         double scale = (1.0 + alpha);
-        b[0] = (1.0 - cos) / 2.0 / scale;
-        b[1] = (1.0 - cos) / scale;
-        b[2] = (1.0 - cos) / 2.0 / scale;
+        b[0] = (1.0 + cos) / 2.0 / scale;
+        b[1] = -(1.0 + cos) / scale;
+        b[2] = (1.0 + cos) / 2.0 / scale;
         a[0] = 1.0;
         a[1] = -2.0 * cos / scale;
         a[2] = (1.0 - alpha) / scale;
