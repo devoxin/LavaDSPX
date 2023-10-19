@@ -19,11 +19,11 @@ package me.devoxin.lavadspx;
 import com.sedmelluq.discord.lavaplayer.filter.FloatPcmAudioFilter;
 
 public class HighPassFilter extends GenericPassFilter {
-    protected HighPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency) {
+    public HighPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency) {
         super(downstream, sampleRate, channelCount, cutoffFrequency);
     }
 
-    protected HighPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency, float boostFactor) {
+    public HighPassFilter(FloatPcmAudioFilter downstream, int sampleRate, int channelCount, int cutoffFrequency, float boostFactor) {
         super(downstream, sampleRate, channelCount, cutoffFrequency, boostFactor);
     }
 
