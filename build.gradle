@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'java-library'
 }
 
@@ -13,5 +14,5 @@ repositories {
 }
 
 dependencies {
-    api "com.github.devoxin.lavaplayer:lavaplayer:1.4.4"
+    implementation "com.github.devoxin.lavaplayer:lavaplayer:1.4.4"
 }
