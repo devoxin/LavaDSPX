@@ -45,6 +45,10 @@ public class FixedNormalizationFilter implements FloatPcmAudioFilter {
         this.maxAmplitude = Math.max(0.0f, Math.min(1.0f, maxAmplitude));
     }
 
+    public float getMaxAmplitude() {
+        return this.maxAmplitude;
+    }
+
     @Override
     public void process(float[][] input, int offset, int length) throws InterruptedException {
         for (int channel = 0; channel < input.length; channel++) {
