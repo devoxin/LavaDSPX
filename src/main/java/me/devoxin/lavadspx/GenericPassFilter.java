@@ -89,7 +89,7 @@ public abstract class GenericPassFilter implements FloatPcmAudioFilter {
                 x1[channel][0] = x0;
                 y1[channel][1] = y1[channel][0];
                 y1[channel][0] = y0;
-                input[channel][i] = y0 * boostFactor;
+                input[channel][i] = Math.min(1.0f, Math.max(-1.0f, y0 * boostFactor));
             }
         }
 
