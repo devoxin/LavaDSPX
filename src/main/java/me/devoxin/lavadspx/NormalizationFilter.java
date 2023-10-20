@@ -37,10 +37,10 @@ public class NormalizationFilter implements FloatPcmAudioFilter {
      * @param downstream The next filter in the chain.
      * @param maxAmplitude A value ranging from 0.0 to 1.0.
      * @param adaptive Whether peak amplitude values should persist for the lifetime of this filter.
-     *                   Setting this to true means that peak amplitude is more accurate over the duration
-     *                   of a track, however it could take a while before the peak amplitude reaches its highest value.
-     *                   Setting this to false means that peak amplitude is only calculated on a per-frame basis,
-     *                   but may cause more noticeable volume changes.
+     *                 Setting this to true means that peak amplitude is more accurate over the duration
+     *                 of a track, however it could take a while before the peak amplitude reaches its highest value.
+     *                 Setting this to false means that peak amplitude is only calculated on a per-frame basis,
+     *                 but may cause more noticeable volume changes.
      */
     public NormalizationFilter(FloatPcmAudioFilter downstream, float maxAmplitude, boolean adaptive) {
         this.downstream = downstream;
