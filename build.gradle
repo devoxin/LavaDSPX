@@ -14,5 +14,5 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.devoxin.lavaplayer:lavaplayer:1.4.4"
+    compileOnly "com.github.devoxin.lavaplayer:lavaplayer:1.4.4"
 }
